@@ -11,8 +11,8 @@ const difficultySelect = document.getElementById("difficulty");
 
 // Array
 function addWordToDOM(){
-  const randomWord = Math.floor(Math.random() * words.length);
-  word.innerHTML = words[randomWord];
+  const randomIndex = Math.floor(Math.random() * words.length);
+  word.innerHTML = words[randomIndex];
 }
   const words = [
     "dependent",
@@ -46,10 +46,35 @@ let score = 0;
 
 //Initializing time
 let time = 10;
+let timerInterval;
 
 function updateScore(){
   score++;
-  score.innerHTML = score;
+  scoreEl.innerHTML = score;
+}
+
+function updateTime(){
+  timerInterval = setInterval(() => {
+    time--;
+    timeEl.innerHTML = time;
+
+    if(time === 0){
+      clearInterval(timerInterval);
+      gameOver();
+    }
+  }, 1000);
+}
+
+function gameOver(){
+  endgameEl.style.display = 'flex';
+
+  endgameEl.innerHTML = `
+    <div>
+      <h1>Game Over!</h1>
+      <h2>Your final score is: ${score}</h2>
+      <button onclick = "location.reload()">Play Again</button>
+    </div> 
+  `;
 }
 
 text.addEventListener('input', function(e){
@@ -68,3 +93,4 @@ text.addEventListener('input', function(e){
 });
 
 addWordToDOM();
+updateTime();
