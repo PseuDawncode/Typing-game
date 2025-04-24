@@ -10,27 +10,33 @@ const settingsBtn = document.getElementById("settings-btn");
 const difficultySelect = document.getElementById("difficulty");
 
 // Array
-const words = [
-  "dependent",
-  "dog",
-  "superficial",
-  "admit",
-  "juice",
-  "javascript",
-  "developer",
-  "airplane",
-  "great",
-  "fun",
-  "manipulate",
-  "cat",
-  "transition",
-  "school",
-  "computer",
-  "programming",
-  "drag",
-  "loving",
-  "north",
-];
+function addWordToDOM(){
+  const randomWord = Math.floor(Math.random() * words.length);
+  word.innerHTML = words[randomWord];
+}
+  const words = [
+    "dependent",
+    "dog",
+    "superficial",
+    "admit",
+    "juice",
+    "javascript",
+    "developer",
+    "airplane",
+    "great",
+    "fun",
+    "manipulate",
+    "cat",
+    "transition",
+    "school",
+    "computer",
+    "programming",
+    "drag",
+    "loving",
+    "north",
+  ];
+
+
 
 //Initializing word
 let randomWord;
@@ -40,3 +46,25 @@ let score = 0;
 
 //Initializing time
 let time = 10;
+
+function updateScore(){
+  score++;
+  score.innerHTML = score;
+}
+
+text.addEventListener('input', function(e){
+  const inputText = e.target.value;
+
+  if (inputText === word.innerHTML){
+    updateScore();
+
+    addWordToDOM();
+
+    time +=5 ;
+    timeEl.innerHTML = time;
+
+    e.target.value = '';
+  }
+});
+
+addWordToDOM();
